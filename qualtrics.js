@@ -20,7 +20,7 @@ Qualtrics.SurveyEngine.addOnload(function()
      * if new output is required then add object to output array and 
      * define in vals output attributes for accounts, uiWidth and adjust updateAccounts() and updateUI()
      * 
-     * ### To-Dos ###
+     * ### To-Dos: ###
      * make crisis_param dependent on treatment
      * discuss start values for contribution and whether they should be the same accross participants.
      * improve styling: add borders, maybe grid markers, improve number layout and rethink positioning
@@ -438,6 +438,7 @@ Qualtrics.SurveyEngine.addOnload(function()
 /*Place your JavaScript here to run when the page is fully displayed*/
 Qualtrics.SurveyEngine.addOnReady(function()
 {
+    /* removes all Question Seperators from page */
     Array.from(document.querySelectorAll(".Separator")).forEach(div => {
         div.style.display = 'none'
     })
