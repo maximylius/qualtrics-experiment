@@ -1,10 +1,10 @@
 Qualtrics.SurveyEngine.addOnload(function()
 {
     /**
-     * Inserts slider and various UI outputs (Bars, Numbers) into DOM
+     * ### ### Inserts slider and various UI outputs (Bars, Numbers) into DOM ### ###
      * 
-     * How to modify outputs:
-     *  
+     * 
+     * ### Variables to define for experiment: ### 
      *  
      * n: number of other participants in experiment (n+1=total number of participants)
      * endow: individual endowment
@@ -13,12 +13,22 @@ Qualtrics.SurveyEngine.addOnload(function()
      * configure slider attributes: min, max, start values and step size
      * 
      * 
-     * ROADMAP:
-     * make crisis_param dependent on experiment
-     * make sure n+1=20 is correct
+     * ### How to modify ui outputs: ### 
+     * if the output is prepared already adjust in vals.uiOutputs array: 
+     * - true or false options (for slider, bar, value, max) to add or remove output 
+     * - or adjust color by adding barBackgroundColor, barForegroundColor options as color strings
+     * if new output is required then add object to output array and 
+     * define in vals output attributes for accounts, uiWidth and adjust updateAccounts() and updateUI()
+     * 
+     * ### To-Dos ###
+     * make crisis_param dependent on treatment
+     * discuss start values for contribution and whether they should be the same accross participants.
      * improve styling: add borders, maybe grid markers, improve number layout and rethink positioning
-     *  
+     * remove binding of vals object to window from final version
+     * 
      * */ 
+
+    /* create object (and bind to window in test phase) for easy access of state values */
     const vals = {
         n: 19,
         endow: 30,
@@ -29,6 +39,7 @@ Qualtrics.SurveyEngine.addOnload(function()
     };
 	window.vals = vals;
 
+    /* create types to help insure consistent use */
     const types = {
         /* subj: */
         YOU: 'you',
@@ -51,7 +62,7 @@ Qualtrics.SurveyEngine.addOnload(function()
         BAR_BACKGROUND_COLOR_DEFAULT: 'transparent'
     };
 
-    /* hide question where data from slider movement shall be saved and bin question to vals */
+    /* hide question to which data from slider movement shall be saved. Bind question to vals object */
     vals.questions = [];
     types.QUESTION_IDS.forEach(question_id => {
         document.getElementById(question_id).style.display = 'none';
@@ -60,7 +71,12 @@ Qualtrics.SurveyEngine.addOnload(function()
     
      
     
-    /* define parent elements */
+    /** uiOutputs: 
+     * define parent elements, 
+     * set type and subj, 
+     * set which ui elements shall be created (slider, bars, value, max)
+     * set color of bars barBackgroundColor, barForegroundColor
+     */
     vals.uiOutputs = [
         /* contribution slider inputs */
         {
@@ -185,11 +201,18 @@ Qualtrics.SurveyEngine.addOnload(function()
         step: vals.contr.you.step * vals.n
     };
 
-    /** create fcts: 
-     * updateAccounts, createBar, createSpanNumber, getValue, getDec, updateUI, sliderListener, createSlider, 
-     * */ 
+    /** #### #### #### create functions #### #### #### */ 
 
-    /* updates currrent account (curr), future account (fut), total account (tot) according to contribution input */
+    /** contains main experiment logic 
+     * 
+     * updates (according to own and other contribution input):
+     * - currrent account (curr), 
+     * - future account (fut), 
+     * - total account (tot) 
+     * - total crisi damage (dmg) 
+     * 
+     * also updates uiWidth (for bars) as a percentage of maximum value
+     */
     const updateAccounts = () => {
         const contr = vals.contr;
         
@@ -248,7 +271,7 @@ Qualtrics.SurveyEngine.addOnload(function()
     const createBar = (barObj) => {
         const barContainer = document.createElement('div');
 	    const barInner = document.createElement('div');
-        barInner.id = 'output-bar-inner-'+barObj.id;
+        barInner.id = 'output-bar-inner-' + barObj.id;
 
         barContainer.style.width = barObj.scale * 90 + '%';
         barContainer.style.height = '1rem';
@@ -302,12 +325,12 @@ Qualtrics.SurveyEngine.addOnload(function()
     const updateUI = () => {
         vals.uiOutputs = vals.uiOutputs.map(uiOutput => {
             if(uiOutput.bar != false){
-                // update bar
+                /* update bar */ 
                 uiOutput.bar.style.width = vals.uiWidth[uiOutput.type][uiOutput.subj];
             };
 
             if(uiOutput.value != false){
-                // update value
+                /* update current value in span */ 
                 const value = getValue(uiOutput.type, uiOutput.subj);    
                 const dec = getDec(uiOutput.type);    
                 uiOutput.value.innerText = value.toFixed(dec);
@@ -351,9 +374,9 @@ Qualtrics.SurveyEngine.addOnload(function()
         return slider;
     };
 
-    /**
-     * Initialize accounts, uiOutputs, sliders
-     */
+
+
+    /** #### #### #### Initialize accounts, uiOutputs, sliders #### #### #### */
 
     /* intialize accounts */
     updateAccounts();
@@ -411,16 +434,15 @@ Qualtrics.SurveyEngine.addOnload(function()
 
 });
 
+
+/*Place your JavaScript here to run when the page is fully displayed*/
 Qualtrics.SurveyEngine.addOnReady(function()
 {
-	/*Place your JavaScript here to run when the page is fully displayed*/
     Array.from(document.querySelectorAll(".Separator")).forEach(div => {
         div.style.display = 'none'
     })
 });
 
-Qualtrics.SurveyEngine.addOnUnload(function()
-{
-	/*Place your JavaScript here to run when the page is unloaded*/
 
-});
+/*Place your JavaScript here to run when the page is unloaded*/
+Qualtrics.SurveyEngine.addOnUnload(function() {});
