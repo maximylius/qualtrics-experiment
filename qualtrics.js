@@ -23,6 +23,11 @@
  * discuss start values for contribution and whether they should be the same accross participants.
  * improve styling: add borders, maybe grid markers, improve number layout and rethink positioning
  * remove binding of vals object to window from final version
+ * add unit ECU behind number. Check decimals places.
+ * add explanation for bars for future account: green fut that survives crisis, red fut that is destroyed by crisis.
+ * make sure height does not exceed screeen height (especially on mobile)
+ * what other vars shall be observed (total time spent on page, deivice type) 
+ * make sure wording is understandable
  * 
  * */ 
 Qualtrics.SurveyEngine.addOnload(function()
@@ -79,18 +84,18 @@ Qualtrics.SurveyEngine.addOnload(function()
     vals.uiOutputs = [
         /* contribution slider inputs */
         {
-            parent: document.getElementById(types.INPUT_TABLE_ID).firstElementChild.children[1].firstElementChild,
             type: types.CONTR,
             subj: types.YOU ,
+            parent: document.getElementById(types.INPUT_TABLE_ID).firstElementChild.children[1].firstElementChild,
             slider: true,
             bar: false,
             value: true,
             max: false
         },
         {
-            parent: document.getElementById(types.INPUT_TABLE_ID).firstElementChild.children[3].firstElementChild,
             type: types.CONTR,
             subj: types.OTHER ,
+            parent: document.getElementById(types.INPUT_TABLE_ID).firstElementChild.children[3].firstElementChild,
             slider: true,
             bar: false,
             value: true,
@@ -98,27 +103,27 @@ Qualtrics.SurveyEngine.addOnload(function()
         },
         /* account bar OR number outputs */
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[1].children[0],
             type: types.CURR,
             subj: types.YOU,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[1].children[0],
             slider: false,
             bar: true,
             value: true,
             max: true
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[1].children[1],
             type: types.CURR,
             subj: types.OTHER ,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[1].children[1],
             slider: false,
             bar: true,
             value: true,
             max: true
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[2].children[0],
             type: types.FUT,
             subj: types.YOU ,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[2].children[0],
             slider: false,
             bar: true,
             value: true,
@@ -126,9 +131,9 @@ Qualtrics.SurveyEngine.addOnload(function()
             barBackgroundColor: 'red'
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[2].children[1],
             type: types.FUT,
             subj: types.OTHER,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[2].children[1],
             slider: false,
             bar: true,
             value: true,
@@ -136,18 +141,18 @@ Qualtrics.SurveyEngine.addOnload(function()
             barBackgroundColor: 'red'
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[3].children[0],
             type: types.TOT,
             subj: types.YOU ,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[3].children[0],
             slider: false,
             bar: false,
             value: true,
             max: false
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[3].children[1],
             type: types.TOT,
             subj: types.OTHER,
+            parent: document.getElementById(types.OUTPUT_TABLE_ID).firstElementChild.children[3].children[1],
             slider: false,
             bar: false,
             value: true,
@@ -155,18 +160,18 @@ Qualtrics.SurveyEngine.addOnload(function()
         },
         /* Group totals */
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_2_ID).firstElementChild.children[1].children[0],
             type: types.TOT,
             subj: types.ALL ,
+            parent: document.getElementById(types.OUTPUT_TABLE_2_ID).firstElementChild.children[1].children[0],
             slider: false,
             bar: true,
             value: true,
             max: false
         },
         {
-            parent: document.getElementById(types.OUTPUT_TABLE_2_ID).firstElementChild.children[1].children[1],
             type: types.DMG,
             subj: types.ALL,
+            parent: document.getElementById(types.OUTPUT_TABLE_2_ID).firstElementChild.children[1].children[1],
             slider: false,
             bar: true,
             value: true,
