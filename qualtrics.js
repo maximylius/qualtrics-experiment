@@ -1,33 +1,32 @@
+/**
+ * ### ### Inserts slider and various UI outputs (Bars, Numbers) into DOM when page loads ### ###
+ * 
+ * 
+ * ### Variables to define for experiment: ### 
+ *  
+ * n: number of other participants in experiment (n+1=total number of participants)
+ * endow: individual endowment
+ * full_future: 120 (value of FA if no crisis happened)
+ * crisis_param, crisis_mult: futureAccount = (crisis_parameter + contr * ( Total_Contr / Max_Contribution ) ) * full_future 
+ * configure slider attributes: min, max, start values and step size
+ * 
+ * 
+ * ### How to modify ui outputs: ### 
+ * if the output is prepared already adjust in vals.uiOutputs array: 
+ * - true or false options (for slider, bar, value, max) to add or remove output 
+ * - or adjust color by adding barBackgroundColor, barForegroundColor options as color strings
+ * if new output is required then add object to output array and 
+ * define in vals output attributes for accounts, uiWidth and adjust updateAccounts() and updateUI()
+ * 
+ * ### To-Dos: ###
+ * make crisis_param dependent on treatment
+ * discuss start values for contribution and whether they should be the same accross participants.
+ * improve styling: add borders, maybe grid markers, improve number layout and rethink positioning
+ * remove binding of vals object to window from final version
+ * 
+ * */ 
 Qualtrics.SurveyEngine.addOnload(function()
 {
-    /**
-     * ### ### Inserts slider and various UI outputs (Bars, Numbers) into DOM ### ###
-     * 
-     * 
-     * ### Variables to define for experiment: ### 
-     *  
-     * n: number of other participants in experiment (n+1=total number of participants)
-     * endow: individual endowment
-     * full_future: 120 (value of FA if no crisis happened)
-     * crisis_param, crisis_mult: future account = (crisis_parameter + contr * ( Total_Contr / Max_Contribution ) ) * full_future 
-     * configure slider attributes: min, max, start values and step size
-     * 
-     * 
-     * ### How to modify ui outputs: ### 
-     * if the output is prepared already adjust in vals.uiOutputs array: 
-     * - true or false options (for slider, bar, value, max) to add or remove output 
-     * - or adjust color by adding barBackgroundColor, barForegroundColor options as color strings
-     * if new output is required then add object to output array and 
-     * define in vals output attributes for accounts, uiWidth and adjust updateAccounts() and updateUI()
-     * 
-     * ### To-Dos: ###
-     * make crisis_param dependent on treatment
-     * discuss start values for contribution and whether they should be the same accross participants.
-     * improve styling: add borders, maybe grid markers, improve number layout and rethink positioning
-     * remove binding of vals object to window from final version
-     * 
-     * */ 
-
     /* create object (and bind to window in test phase) for easy access of state values */
     const vals = {
         n: 19,
