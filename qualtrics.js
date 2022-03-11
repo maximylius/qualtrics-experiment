@@ -66,11 +66,11 @@ Qualtrics.SurveyEngine.addOnload(function()
         BAR_BACKGROUND_COLOR_DEFAULT: 'transparent'
     };
 
-    /* hide question to which data from slider movement shall be saved. Bind question to vals object */
-    vals.questions = [];
+    /* hide question to which data from slider movement shall be saved. Add dataStorageFields to vals object */
+    vals.dataStorageFields = [];
     types.QUESTION_IDS.forEach(question_id => {
         document.getElementById(question_id).style.display = 'none';
-        vals.questions.push(document.getElementById(question_id).querySelector('input'));
+        vals.dataStorageFields.push(document.getElementById(question_id).querySelector('input'));
     });
     
      
@@ -352,11 +352,11 @@ Qualtrics.SurveyEngine.addOnload(function()
         updateAccounts();
         /* update width of inner bars in UI*/
         updateUI();
-        /* save slider movements, if question is full (20,000 chars) save to next question is full, if all full dont save. */
-        const question = vals.questions.filter(question => question.value.length < 20000-50)[0]
-        if(question) {
+        /* save slider movements, if dataStorageField is full (20,000 chars) save to next dataStorageField, if all full dont save. */
+        const dataStorageField = vals.dataStorageFields.filter(dataStorageField => dataStorageField.value.length < 20000-50)[0]
+        if(dataStorageField) {
             let currentTimeSliderPosition = "t" + (Date.now() - vals.t0) + "y" + vals.contr.you.value + "o" + vals.contr.other.value + ";";
-            question.value = question.value + currentTimeSliderPosition;
+            dataStorageField.value = dataStorageField.value + currentTimeSliderPosition;
         };
     };
 
@@ -442,7 +442,7 @@ Qualtrics.SurveyEngine.addOnload(function()
 /*Place your JavaScript here to run when the page is fully displayed*/
 Qualtrics.SurveyEngine.addOnReady(function()
 {
-    /* removes all Question Seperators from page */
+    /* removes all question Seperators from page */
     Array.from(document.querySelectorAll(".Separator")).forEach(div => {
         div.style.display = 'none'
     })
