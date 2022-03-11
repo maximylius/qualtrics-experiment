@@ -430,10 +430,11 @@ Qualtrics.SurveyEngine.addOnload(function()
         return uiOutput;
     });
 
-    /* add sliders to ui */
+    /* add sliders to ui, insert as first child */
     vals.uiOutputs.filter(uiOutput => uiOutput.slider != false).forEach(uiOutput => {
-        vals.uiOutputs[uiOutput.index].slider =  createSlider(vals.contr[uiOutput.subj], uiOutput.subj);
-        uiOutput.parent.insertBefore(vals.uiOutputs[uiOutput.index].slider, uiOutput.parent.firstElementChild);
+        const slider = createSlider(vals.contr[uiOutput.subj], uiOutput.subj);
+        vals.uiOutputs[uiOutput.index].slider = slider;
+        uiOutput.parent.insertBefore(slider, uiOutput.parent.firstElementChild);
     });
 
 });
